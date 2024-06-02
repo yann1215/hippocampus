@@ -7,7 +7,7 @@ import seaborn as sns
 
 sns.set_style("darkgrid")
 
-image_path = "data_preprocessed/preprocess_second/s001_second_preprocessed.nii"
+image_path = "data_preprocessed/mask_second/s001_mask_second.nii"
 
 image_obj = nib.load(image_path)
 # print(f"Type of the image {type(image_obj)}")
