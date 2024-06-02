@@ -23,7 +23,7 @@ print(f"image value range: [{image_data.min()}, {image_data.max()}]")
 # image_data2 = image_data * 255 / (image_data.max() - image_data.min())
 
 # print(image_obj.header.keys())
-# pixdim = image_obj.header["pixdim"]
+pixdim = image_obj.header["pixdim"]
 # print(f"z-axis resolution ratio： {pixdim[3]}")
 # print(f"in plane resolution ratio： {pixdim[1]} * {pixdim[2]}")
 
@@ -32,7 +32,7 @@ x_range = pixdim[1] * height
 y_range = pixdim[2] * width
 print(x_range, y_range, z_range)
 
-i = 50
+i = 120
 print(f"Plotting z Layer {i} of Image")
 plt.imshow(image_data[:, :, i], cmap="gray")
 plt.axis("off")

@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c97076f-948d-4e87-9023-2d3496941df1" name="Changes" comment="2024/6/2 11:59 master nii_open.py">
+    <list default="true" id="4c97076f-948d-4e87-9023-2d3496941df1" name="Changes" comment="2024/6/2 12:04 master">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nii_open.py" beforeDir="false" afterPath="$PROJECT_DIR$/nii_open.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -143,13 +144,22 @@
       <option name="project" value="LOCAL" />
       <updated>1717301021630</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="2024/6/2 12:04 master">
+      <option name="closed" value="true" />
+      <created>1717301081833</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1717301081833</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="2024/6/2 0:11 master" />
     <MESSAGE value="2024/6/2 11:52 master" />
     <MESSAGE value="2024/6/2 11:59 master nii_open.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="2024/6/2 11:59 master nii_open.py" />
+    <MESSAGE value="2024/6/2 12:04 master" />
+    <option name="LAST_COMMIT_MESSAGE" value="2024/6/2 12:04 master" />
   </component>
 </project>
