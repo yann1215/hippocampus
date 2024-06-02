@@ -139,9 +139,9 @@ def count_data(input_path):
 file_path = "data_preprocessed/preprocess_second/"
 jpg_path = "data_preprocessed/preprocess_second_jpg/"
 
-# if not os.path.exists(jpg_path):
-#     os.makedirs(jpg_path)  # create output folder
-#
+if not os.path.exists(jpg_path):
+    os.makedirs(jpg_path)  # create output folder
+
 # nii2jpg(file_path, jpg_path)
 
 # ---------- Get Slice Video ----------
