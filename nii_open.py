@@ -15,18 +15,17 @@ image_obj = nib.load(image_path)
 image_data = image_obj.get_fdata()
 # type(image_data)
 
-print("max value of an image", np.max(image_data))
-
 height, width, depth = image_data.shape
 print(f"The image object height: {height}, width:{width}, depth:{depth}")
 
+# print("max value of an image", np.max(image_data))
 print(f"image value range: [{image_data.min()}, {image_data.max()}]")
 # image_data2 = image_data * 255 / (image_data.max() - image_data.min())
 
 # print(image_obj.header.keys())
-pixdim = image_obj.header["pixdim"]
-print(f"z-axis resolution ratio： {pixdim[3]}")
-print(f"in plane resolution ratio： {pixdim[1]} * {pixdim[2]}")
+# pixdim = image_obj.header["pixdim"]
+# print(f"z-axis resolution ratio： {pixdim[3]}")
+# print(f"in plane resolution ratio： {pixdim[1]} * {pixdim[2]}")
 
 z_range = pixdim[3] * depth
 x_range = pixdim[1] * height
@@ -37,7 +36,5 @@ i = 50
 print(f"Plotting z Layer {i} of Image")
 plt.imshow(image_data[:, :, i], cmap="gray")
 plt.axis("off")
-
-# interact(explore_3dimage, layer=(0, image_data.shape[-1]))
 
 plt.show()
