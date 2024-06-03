@@ -40,13 +40,14 @@ def jpg_save(file_data, output_path):
 
 
 def nii2jpg(input_path, output_path):
-    file_path = input_path + "*.nii" + "*"
+    file_path = input_path + "/*.nii" + "*"
     file_path = os.path.normpath(file_path)
 
     for file in glob.glob(file_path):
         print("nii2jpg processing: ", file)
 
         # check if file is ok
+        # note: processed file errors in this case, but the data is available
         # try:
         #     with gzip.open(file, "rb") as f:
         #         f.read(1)
@@ -76,8 +77,10 @@ def nii2jpg(input_path, output_path):
 def create_video(image_folder, output_video_path, fps):
     # Get the list of image files and ensure sorting by name
     images = [img for img in os.listdir(image_folder) if img.endswith((".jpg"))]
-    # images.sort()  # Ensure sorting of images by name
+
+    # Ensure sorting of images by name
     # note: this line of code disturbs fps; no need in this case
+    # images.sort()
 
     # Read the first image to get frame width, height, and layers
     frame = cv2.imread(os.path.join(image_folder, images[0]))
@@ -130,37 +133,38 @@ def count_data(input_path):
     # return max_location
 
 
-# ---------- Get NII Slice Image ----------
-# raw image
-# file_path = "dataset/RawImageNIfTI/"
-# jpg_path = "dataset/RawImageJPG/"
+if __name__ == "__main__":
+    # ---------- Get NII Slice Image ----------
+    # raw image
+    # file_path = "dataset/RawImageNIfTI/"
+    # jpg_path = "dataset/RawImageJPG/"
 
-# processed 2
-file_path = "data_preprocessed/preprocess_second/"
-jpg_path = "data_preprocessed/preprocess_second_jpg/"
+    # processed 2
+    file_path = "data_preprocessed/preprocess_second/"
+    jpg_path = "data_preprocessed/preprocess_second_jpg/"
 
-if not os.path.exists(jpg_path):
-    os.makedirs(jpg_path)  # create output folder
+    if not os.path.exists(jpg_path):
+        os.makedirs(jpg_path)  # create output folder
 
-# nii2jpg(file_path, jpg_path)
+    # nii2jpg(file_path, jpg_path)
 
-# ---------- Get Slice Video ----------
-video_char = "z"
+    # ---------- Get Slice Video ----------
+    video_char = "z"
 
-# image_folder = f"dataset/RawImageJPG/{video_char}/"
-# output_video_path = f"dataset/RawImage_{video_char}.mp4"
-image_folder = jpg_path + video_char + "/"
+    # image_folder = f"dataset/RawImageJPG/{video_char}/"
+    # output_video_path = f"dataset/RawImage_{video_char}.mp4"
+    image_folder = jpg_path + video_char + "/"
 
-if os.path.exists(image_folder):
-    output_video_path = jpg_path + f"preprocess_second_{video_char}.mp4"
-    fps = 2
-    print("generating video...")
-    create_video(image_folder, output_video_path, fps)
-    print("video generated")
-else:
-    print("image folder empty, video generation failed")
+    if os.path.exists(image_folder):
+        output_video_path = jpg_path + f"preprocess_second_{video_char}.mp4"
+        fps = 2
+        print("generating video...")
+        create_video(image_folder, output_video_path, fps)
+        print("video generated")
+    else:
+        print("image folder empty, video generation failed")
 
-# ---------- Make Statistics ----------
-# mask_path = "data_preprocessed/mask_second/"
-# mask_path = "dataset/AffinedManualSegImageNIfTI/"
-# count_data(mask_path)
+    # ---------- Make Statistics ----------
+    # mask_path = "data_preprocessed/mask_second/"
+    # mask_path = "dataset/AffinedManualSegImageNIfTI/"
+    # count_data(mask_path)
