@@ -10,6 +10,10 @@ import cv2
 # from mayavi import mlab
 
 
+import os
+import matplotlib.pyplot as plt
+
+
 def get_file_path(file_name, input_path, output_path, axis):
     save_path = output_path + axis + "/"
 
@@ -134,37 +138,37 @@ def count_data(input_path):
 
 
 if __name__ == "__main__":
-    # ---------- Get NII Slice Image ----------
-    # raw image
-    # file_path = "dataset/RawImageNIfTI/"
-    # jpg_path = "dataset/RawImageJPG/"
+    # ---------- Make Statistics ----------
+    mask_path = "data_preprocessed/mask_second/"
+    mask_path = "dataset/AffinedManualSegImageNIfTI/"
+    count_data(mask_path)
 
-    # processed 2
-    file_path = "data_preprocessed/preprocess_second/"
-    jpg_path = "data_preprocessed/preprocess_second_jpg/"
-
-    if not os.path.exists(jpg_path):
-        os.makedirs(jpg_path)  # create output folder
-
-    # nii2jpg(file_path, jpg_path)
+    # # ---------- Get NII Slice Image ----------
+    # # raw image
+    # # file_path = "dataset/RawImageNIfTI/"
+    # # jpg_path = "dataset/RawImageJPG/"
+    #
+    # # processed 2
+    # file_path = "data_preprocessed/preprocess_second/"
+    # jpg_path = "data_preprocessed/preprocess_second_jpg/"
+    #
+    # if not os.path.exists(jpg_path):
+    #     os.makedirs(jpg_path)  # create output folder
+    #
+    # # nii2jpg(file_path, jpg_path)
 
     # ---------- Get Slice Video ----------
-    video_char = "z"
-
-    # image_folder = f"dataset/RawImageJPG/{video_char}/"
-    # output_video_path = f"dataset/RawImage_{video_char}.mp4"
-    image_folder = jpg_path + video_char + "/"
-
-    if os.path.exists(image_folder):
-        output_video_path = jpg_path + f"preprocess_second_{video_char}.mp4"
-        fps = 2
-        print("generating video...")
-        create_video(image_folder, output_video_path, fps)
-        print("video generated")
-    else:
-        print("image folder empty, video generation failed")
-
-    # ---------- Make Statistics ----------
-    # mask_path = "data_preprocessed/mask_second/"
-    # mask_path = "dataset/AffinedManualSegImageNIfTI/"
-    # count_data(mask_path)
+    # video_char = "z"
+    #
+    # # image_folder = f"dataset/RawImageJPG/{video_char}/"
+    # # output_video_path = f"dataset/RawImage_{video_char}.mp4"
+    # image_folder = jpg_path + video_char + "/"
+    #
+    # if os.path.exists(image_folder):
+    #     output_video_path = jpg_path + f"preprocess_second_{video_char}.mp4"
+    #     fps = 2
+    #     print("generating video...")
+    #     create_video(image_folder, output_video_path, fps)
+    #     print("video generated")
+    # else:
+    #     print("image folder empty, video generation failed")
