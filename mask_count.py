@@ -15,7 +15,8 @@ import matplotlib.pyplot as plt
 
 
 def get_file_path(file_name, input_path, output_path, axis):
-    save_path = output_path + axis + "/"
+    save_path = output_path + "/" + axis
+    save_path = os.path.normpath(save_path)
 
     if not os.path.exists(save_path):
         os.makedirs(save_path)  # create output folder
@@ -91,7 +92,7 @@ def create_video(image_folder, output_video_path, fps):
     height, width, layers = frame.shape
 
     # Define the video codec and create VideoWriter object
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Using mp4v codec
+    fourcc = cv2.VideoWriter_fourcc(*"mp4v")  # Using mp4v codec
     video = cv2.VideoWriter(output_video_path, fourcc, fps, (width, height))
 
     for image in images:
@@ -105,20 +106,21 @@ def create_video(image_folder, output_video_path, fps):
 
 def count_data(input_path):
     count_flag = 1
-    file_path = input_path + "*.nii" + "*"
+    file_path = input_path + "/*.nii" + "*"
+    file_path = os.path.normpath(file_path)
 
     for file in glob.glob(file_path):
+        print(f"count_data processing: {file}")
+
+        file_obj = nib.load(file)
+        # get numpy data
+        file_data = file_obj.get_fdata()
+
         if count_flag:
             count_result = np.zeros_like(file_data)
             count_num = 0
             count_flag = 0
             print("mask shape is: ", file_data.shape)
-
-        print("count_data processing: file")
-
-        file_obj = nib.load(file)
-        # get numpy data
-        file_data = file_obj.get_fdata()
 
         count_result += np.where(file_data > 0, 1, 0)
         count_num += 1
@@ -139,36 +141,29 @@ def count_data(input_path):
 
 if __name__ == "__main__":
     # ---------- Make Statistics ----------
-    mask_path = "data_preprocessed/mask_second/"
-    mask_path = "dataset/AffinedManualSegImageNIfTI/"
+    mask_path = "dataset/AffinedManualSegImageNIfTI"
     count_data(mask_path)
 
-    # # ---------- Get NII Slice Image ----------
-    # # raw image
-    # # file_path = "dataset/RawImageNIfTI/"
-    # # jpg_path = "dataset/RawImageJPG/"
-    #
-    # # processed 2
-    # file_path = "data_preprocessed/preprocess_second/"
-    # jpg_path = "data_preprocessed/preprocess_second_jpg/"
-    #
-    # if not os.path.exists(jpg_path):
-    #     os.makedirs(jpg_path)  # create output folder
-    #
-    # # nii2jpg(file_path, jpg_path)
+    # ---------- Get NII Slice Image ----------
+    file_path = "dataset/RawImageNIfTI"
+    jpg_path = "dataset/RawImageNIfTI_jpg"
+
+    if not os.path.exists(jpg_path):
+        os.makedirs(jpg_path)  # create output folder
+
+    nii2jpg(file_path, jpg_path)
 
     # ---------- Get Slice Video ----------
-    # video_char = "z"
-    #
-    # # image_folder = f"dataset/RawImageJPG/{video_char}/"
-    # # output_video_path = f"dataset/RawImage_{video_char}.mp4"
-    # image_folder = jpg_path + video_char + "/"
-    #
-    # if os.path.exists(image_folder):
-    #     output_video_path = jpg_path + f"preprocess_second_{video_char}.mp4"
-    #     fps = 2
-    #     print("generating video...")
-    #     create_video(image_folder, output_video_path, fps)
-    #     print("video generated")
-    # else:
-    #     print("image folder empty, video generation failed")
+    video_char = "x"
+
+    image_folder = jpg_path + "/" + video_char
+
+    if os.path.exists(image_folder):
+        output_video_path = jpg_path + f"_{video_char}.mp4"
+        output_video_path = os.path.normpath(output_video_path)
+        fps = 2
+        print("generating video...")
+        create_video(image_folder, output_video_path, fps)
+        print("video generated")
+    else:
+        print("image folder empty, video generation failed")
